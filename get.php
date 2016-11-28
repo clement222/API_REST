@@ -201,7 +201,15 @@ $orders = json_decode($orders, true);
       <div class="row animate-box">
         <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
           <h2>Les ordres</h2>
-          <h3>Total <?php echo count($orders);?></h3>
+          <h3> <?php
+            if ($orders) {
+              echo "Total ".count($orders);
+            }
+            else {
+              echo "<strong style='color: red'>Service non disponible</strong>";
+            }
+            ?>
+          </h3>
         </div>
       </div>
       <div class="row">
