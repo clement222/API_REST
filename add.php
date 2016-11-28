@@ -9,11 +9,11 @@
   <meta name="keywords" content="TP API" />
 
   <!-- Facebook and Twitter integration -->
-  <meta property="og:title" content=""/>
-  <meta property="og:image" content=""/>
-  <meta property="og:url" content=""/>
-  <meta property="og:site_name" content=""/>
-  <meta property="og:description" content=""/>
+  <meta property="og:title" content="" />
+  <meta property="og:image" content="" />
+  <meta property="og:url" content="" />
+  <meta property="og:site_name" content="" />
+  <meta property="og:description" content="" />
   <meta name="twitter:title" content="" />
   <meta name="twitter:image" content="" />
   <meta name="twitter:url" content="" />
@@ -66,44 +66,54 @@
     </div>
   </nav>
 
+  <header id="fh5co-header" class="fh5co-cover" role="banner" style="height: 180px;">
+    <div class="overlay"></div>
+  </header>
 
-
-  <div id="fh5co-started">
-  </div>
-
-  <div id="fh5co-services" class="fh5co-bg-section">
+  <div id="fh5co-project">
     <div class="container">
+      <div class="row animate-box">
+        <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+          <h2>Ajout d'un ordre</h2>
+        </div>
+      </div>
       <div class="row">
-        <div class="col-md-4 col-sm-4">
-          <div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<span class="icon">
-							<i class="icon-eye"></i>
-						</span>
-            <h3>Retina Ready</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+        <form class="form" method="POST" action="addChecked.php">
+          <div class="col-md-6 col-md-offset-3 col-sm-6">
+          <label for="side" style="margin-left: 23%;">Type</label>
+          <select name="side" style="margin-left: 10%;">
+            <option>---</option>
+            <option value="buy">BUY</option>
+            <option value="sell">SELL</option>
+          </select>
+          <br/>
+          <br/>
+          <label for="orderQty" style="margin-left: 23%;">Quantité</label>
+          <input type="number" name="orderQty" style="margin-left: 4%;"/>
+          <br/>
+          <br/>
+          <label for="symbol" style="margin-left: 23%;">Symbole</label>
+          <input type="text" name="symbol" value="EUR/USD" style="margin-left: 4%;"/>
+          <br/>
+          <br/>
+          <label for="limit" style="margin-left: 23%;">Limite</label>
+          <input type="text" name="limit" style="margin-left: 7%;"/>
+          <br/>
+          <br/>
+          <label for="stop" style="margin-left: 23%;">Stop</label>
+          <input type="text" name="stop" style="margin-left: 9%;"/>
+          <br/>
+          <br/>
+            <button type="submit"
+                    style="background-color:#F36363; color :white; width: 40%; margin-left: 30%;"
+                    class="btn btn-default btn-block">Ajouter
+            </button>
           </div>
-        </div>
-        <div class="col-md-4 col-sm-4">
-          <div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<span class="icon">
-							<i class="icon-command"></i>
-						</span>
-            <h3>Fully Responsive</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-4">
-          <div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<span class="icon">
-							<i class="icon-mouse"></i>
-						</span>
-            <h3>Web Starter</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
+
 </div>
 
 <div class="gototop js-top">
