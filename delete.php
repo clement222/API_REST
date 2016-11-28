@@ -49,17 +49,17 @@
 			<div class="row">
 				<div class="left-menu text-right menu-1">
 					<ul>
-						<li><a href="add.html">Ajouter</a></li>
-						<li><a href="get.html">Récupérer</a></li>
+						<li><a href="add.php">Ajouter</a></li>
+						<li><a href="get.php">Récupérer</a></li>
 					</ul>
 				</div>
 				<div class="logo text-center">
-					<div id="fh5co-logo"><a href="index.html">Money Push</a></div>
+					<div id="fh5co-logo"><a href="index.php">Money Push</a></div>
 				</div>
 				<div class="right-menu text-left menu-1">
 					<ul>
-						<li class="active"><a href="put.html">Modifier</a></li>
-						<li><a href="delete.html">Supprimer</a></li>
+						<li><a href="put.php">Modifier</a></li>
+						<li class="active"><a href="delete.php">Supprimer</a></li>
 					</ul>
 				</div>
 			</div>

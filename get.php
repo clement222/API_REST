@@ -1,3 +1,18 @@
+<?php
+
+// Initialisation de notre requete CURL
+$curl = curl_init('https://api-2445581154346.apicast.io/positions?user_key=4f6158ef97874d8d49ead880fc6fe756');
+// CURL nous retourne le résultat au lieu de l'afficher
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+// Execution de la requete CURL et on recupere le résultat
+$orders = curl_exec($curl);
+curl_close($curl);
+
+// On souhait avoir le résultat sous forme d'un tableau
+$orders = json_decode($orders, true);
+?>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -37,6 +52,118 @@
   <!--[if lt IE 9]>
   <script src="js/respond.min.js"></script>
   <![endif]-->
+
+  <style>
+    body {
+      background: #fafafa url(http://jackrugile.com/images/misc/noise-diagonal.png);
+      color: #444;
+      font: 100%/30px 'Helvetica Neue', helvetica, arial, sans-serif;
+      text-shadow: 0 1px 0 #fff;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    table {
+      background: #f5f5f5;
+      border-collapse: separate;
+      box-shadow: inset 0 1px 0 #fff;
+      font-size: 12px;
+      line-height: 24px;
+      margin: 30px auto;
+      text-align: left;
+      width: 800px;
+    }
+
+    th {
+      background: url(http://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);
+      border-left: 1px solid #555;
+      border-right: 1px solid #777;
+      border-top: 1px solid #555;
+      border-bottom: 1px solid #333;
+      box-shadow: inset 0 1px 0 #999;
+      color: #fff;
+      font-weight: bold;
+      padding: 10px 15px;
+      position: relative;
+      text-shadow: 0 1px 0 #000;
+    }
+
+    th:after {
+      background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, .08));
+      content: '';
+      display: block;
+      height: 25%;
+      left: 0;
+      margin: 1px 0 0 0;
+      position: absolute;
+      top: 25%;
+      width: 100%;
+    }
+
+    th:first-child {
+      border-left: 1px solid #777;
+      box-shadow: inset 1px 1px 0 #999;
+    }
+
+    th:last-child {
+      box-shadow: inset -1px 1px 0 #999;
+    }
+
+    td {
+      border-right: 1px solid #fff;
+      border-left: 1px solid #e8e8e8;
+      border-top: 1px solid #fff;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 10px 15px;
+      position: relative;
+      transition: all 300ms;
+    }
+
+    td:first-child {
+      box-shadow: inset 1px 0 0 #fff;
+    }
+
+    td:last-child {
+      border-right: 1px solid #e8e8e8;
+      box-shadow: inset -1px 0 0 #fff;
+    }
+
+    tr {
+      background: url(http://jackrugile.com/images/misc/noise-diagonal.png);
+    }
+
+    tr:nth-child(odd) td {
+      background: #f1f1f1 url(http://jackrugile.com/images/misc/noise-diagonal.png);
+    }
+
+    tr:last-of-type td {
+      box-shadow: inset 0 -1px 0 #fff;
+    }
+
+    tr:last-of-type td:first-child {
+      box-shadow: inset 1px -1px 0 #fff;
+    }
+
+    tr:last-of-type td:last-child {
+      box-shadow: inset -1px -1px 0 #fff;
+    }
+
+    tbody:hover td {
+      color: transparent;
+      text-shadow: 0 0 3px #aaa;
+    }
+
+    tbody:hover tr:hover td {
+      color: #444;
+      text-shadow: 0 1px 0 #fff;
+    }
+  </style>
 </head>
 <body>
 
@@ -48,17 +175,17 @@
       <div class="row">
         <div class="left-menu text-right menu-1">
           <ul>
-            <li><a href="add.html">Ajouter</a></li>
+            <li><a href="add.php">Ajouter</a></li>
             <li class="active"><a href="get.php">Récupérer</a></li>
           </ul>
         </div>
         <div class="logo text-center">
-          <div id="fh5co-logo"><a href="index.html">Money Push</a></div>
+          <div id="fh5co-logo"><a href="index.php">Money Push</a></div>
         </div>
         <div class="right-menu text-left menu-1">
           <ul>
-            <li><a href="put.html">Modifier</a></li>
-            <li><a href="delete.html">Supprimer</a></li>
+            <li><a href="put.php">Modifier</a></li>
+            <li><a href="delete.php">Supprimer</a></li>
           </ul>
         </div>
       </div>
@@ -77,49 +204,31 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-          <a href="#"><img src="images/work-1.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
+        <table>
+          <thead>
+          <tr>
+            <th style="text-align: center">Identifiant</th>
+            <th style="text-align: center">Type</th>
+            <th style="text-align: center">Quantité</th>
+            <th style="text-align: center">Prix</th>
+            <th style="text-align: center">Symbole</th>
+          </tr>
+          </thead>
+          <tbody>
+            <?php
 
-            <h3>Sea</h3>
-            <span>Web Design</span>
-          </a>
-        </div>
-        <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-          <a href="#"><img src="images/work-2.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-
-            <h3>Nature</h3>
-            <span>Application</span>
-          </a>
-        </div>
-        <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-          <a href="#"><img src="images/work-3.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-
-            <h3>Green Island</h3>
-            <span>Branding</span>
-          </a>
-        </div>
-        <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-          <a href="#"><img src="images/work-4.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-
-            <h3>Workspace</h3>
-            <span>Web Design</span>
-          </a>
-        </div>
-        <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-          <a href="#"><img src="images/work-5.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-
-            <h3>Nature</h3>
-            <span>Application</span>
-          </a>
-        </div>
-        <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-          <a href="#"><img src="images/work-6.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-
-            <h3>Green Island</h3>
-            <span>Branding</span>
-          </a>
-        </div>
-
+            foreach ($orders as $_order) {
+              echo "<tr>";
+              echo "<td style='text-align: center;'><strong>".$_order["Order"]["OrderID"]."</strong></td>";
+              echo "<td style='text-align: center;'><strong>".$_order["Order"]["Side"]."</strong></td>";
+              echo "<td style='text-align: center;'><strong>".$_order["Order"]["OrderQty"]."</strong></td>";
+              echo "<td style='text-align: center;'><strong>".$_order["Order"]["Price"]."</strong></td>";
+              echo "<td style='text-align: center;'><strong>".$_order["Order"]["Symbol"]."</strong></td>";
+              echo "</tr>";
+            }
+            ?>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
