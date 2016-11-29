@@ -83,8 +83,8 @@
           <label for="side" style="margin-left: 23%;">Type</label>
           <select name="side" style="margin-left: 10%;">
             <option>---</option>
-            <option value="buy">BUY</option>
-            <option value="sell">SELL</option>
+            <option value="BUY">BUY</option>
+            <option value="SELL">SELL</option>
           </select>
           <br/>
           <br/>
