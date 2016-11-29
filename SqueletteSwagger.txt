@@ -1,0 +1,191 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Money Push API
+  description: Money Push API
+  version: "1.0.0"
+# the domain of the service
+host: api.moneypush.com
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /ordre:
+    post:
+      #summary: Product Types
+      description: |
+        Création d'un ordre
+      parameters:
+        - name: user_key
+          in: query
+          description: Clé d'identification
+          required: true
+          type: string
+        - name: symbole
+          in: query
+          description: Il faut préciser ce paramètre de la manière suivante "EUR/USD"
+          required: true
+          type: string
+        - name: quantiteOrdre
+          in: query
+          description: Quantité à parier. La valeur doit être un multiple de 10000
+          required: true
+          type: number
+          format: int
+        - name: typeParie
+          in: query
+          description: BUY ou SELL
+          required: true
+          type: string
+        - name: typeLimiteStop
+          in: query
+          description: Si les champs "stop" et "limite" sont renseignés, mettez la valeur 'ModifiableStopLoss' sinon mettez la valeur 'Simple'
+          required: true
+          type: string
+        - name: limite
+          in: query
+          description: Taux de la limite où vous mettez fin pour prendre votre profits
+          required: true
+          type: number
+          format: double
+        - name: stop
+          in: query
+          description: Taux de l'arrêt où vous mettez fin pour arrêter votre perte
+          required: true
+          type: number
+          format: double
+      tags:
+        - Ordre
+      responses:
+        200:
+          description: Tableau d'ordres
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Ordre'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    get:
+      #summary: Product Types
+      description: |
+        Récupère des ordres. Si un OrdreID l'ordre sera retourné sinon tous les ordres seront retournés
+      parameters:
+        - name: ordre_ID
+          in: query
+          description: Identifiant de l'ordre
+          required: false
+          type: number
+          format: int
+        - name: user_key
+          in: query
+          description: Clé d'identification
+          required: true
+          type: string
+      tags:
+        - Ordre
+      responses:
+        200:
+          description: Tableau d'ordres
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Ordre'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      description: |
+        Modifie un ordre
+      parameters:
+        - name: ordre_ID
+          in: query
+          description: Identifiant de l'ordre
+          required: true
+          type: number
+          format: int
+        - name: user_key
+          in: query
+          description: Clé d'identification
+          required: true
+          type: string
+      tags:
+        - Ordre
+      responses:
+        200:
+          description: Ordre
+          schema:
+            type: string
+            items:
+              $ref: '#/definitions/Ordre'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      description: |
+        Supprime un ordre
+      parameters:
+        - name: ordre_ID
+          in: query
+          description: Identifiant de l'ordre
+          required: true
+          type: number
+          format: int
+        - name: user_key
+          in: query
+          description: Clé d'identification
+          required: true
+          type: string
+      tags:
+        - Ordre
+      responses:
+        200:
+          description: Ordre
+          schema:
+            type: string
+            items:
+              $ref: '#/definitions/Ordre'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Ordre:
+    type: object
+    properties:
+      order_id:
+        type: number
+        description: Identifiant unique d'un ordre
+      symbole:
+        type: string
+        description: Monnaie
+      quantiteOrdre:
+        type: number
+        description: Quantité à parier
+      typeParie:
+        type: string
+        description: BUY ou SELL
+      limite:
+        type: number
+        description: Taux de la limite où vous mettez fin pour prendre votre profits
+      stop:
+        type: number
+        description: Taux de l'arrêt où vous mettez fin pour arrêter votre perte
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
