@@ -1,7 +1,7 @@
 <?php
 
 // Initialisation de notre requete CURL
-$curl = curl_init('https://api-2445581154346.apicast.io/positions?user_key=3392b37de2eae8db78ce0ed31135acf3');
+$curl = curl_init('https://api-2445581154346.apicast.io/positions?user_key=4f6158ef97874d8d49ead880fc6fe756');
 // CURL nous retourne le résultat au lieu de l'afficher
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 

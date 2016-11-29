@@ -1,354 +1,257 @@
+<?php
+
+// Initialisation de notre requete CURL
+$curl = curl_init('https://api-2445581154346.apicast.io/positions?user_key=4f6158ef97874d8d49ead880fc6fe756');
+// CURL nous retourne le résultat au lieu de l'afficher
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+// Execution de la requete CURL et on recupere le résultat
+$orders = curl_exec($curl);
+curl_close($curl);
+
+// On souhait avoir le résultat sous forme d'un tableau
+$orders = json_decode($orders, true);
+?>
+
 <!DOCTYPE HTML>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Money Push API</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Site web pour utiliser une API REST" />
-	<meta name="keywords" content="TP API" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Money Push API</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Site web pour utiliser une API REST" />
+  <meta name="keywords" content="TP API" />
 
-	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
+  <!-- Facebook and Twitter integration -->
+  <meta property="og:title" content="" />
+  <meta property="og:image" content="" />
+  <meta property="og:url" content="" />
+  <meta property="og:site_name" content="" />
+  <meta property="og:description" content="" />
+  <meta name="twitter:title" content="" />
+  <meta name="twitter:image" content="" />
+  <meta name="twitter:url" content="" />
+  <meta name="twitter:card" content="" />
 
-	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
-	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700" rel="stylesheet">
 
-	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
-	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
-	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<!-- Theme style  -->
-	<link rel="stylesheet" href="css/style.css">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="css/animate.css">
+  <!-- Icomoon Icon Fonts-->
+  <link rel="stylesheet" href="css/icomoon.css">
+  <!-- Bootstrap  -->
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <!-- Theme style  -->
+  <link rel="stylesheet" href="css/style.css">
 
-	<!-- Modernizr JS -->
-	<script src="js/modernizr-2.6.2.min.js"></script>
-	<!-- FOR IE9 below -->
-	<!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
+  <!-- Modernizr JS -->
+  <script src="js/modernizr-2.6.2.min.js"></script>
+  <!-- FOR IE9 below -->
+  <!--[if lt IE 9]>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
 
+  <style>
+    body {
+      background: #fafafa url(http://jackrugile.com/images/misc/noise-diagonal.png);
+      color: #444;
+      font: 100%/30px 'Helvetica Neue', helvetica, arial, sans-serif;
+      text-shadow: 0 1px 0 #fff;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    table {
+      background: #f5f5f5;
+      border-collapse: separate;
+      box-shadow: inset 0 1px 0 #fff;
+      font-size: 12px;
+      line-height: 24px;
+      margin: 30px auto;
+      text-align: left;
+      width: 800px;
+    }
+
+    th {
+      background: url(http://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);
+      border-left: 1px solid #555;
+      border-right: 1px solid #777;
+      border-top: 1px solid #555;
+      border-bottom: 1px solid #333;
+      box-shadow: inset 0 1px 0 #999;
+      color: #fff;
+      font-weight: bold;
+      padding: 10px 15px;
+      position: relative;
+      text-shadow: 0 1px 0 #000;
+    }
+
+    th:after {
+      background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, .08));
+      content: '';
+      display: block;
+      height: 25%;
+      left: 0;
+      margin: 1px 0 0 0;
+      position: absolute;
+      top: 25%;
+      width: 100%;
+    }
+
+    th:first-child {
+      border-left: 1px solid #777;
+      box-shadow: inset 1px 1px 0 #999;
+    }
+
+    th:last-child {
+      box-shadow: inset -1px 1px 0 #999;
+    }
+
+    td {
+      border-right: 1px solid #fff;
+      border-left: 1px solid #e8e8e8;
+      border-top: 1px solid #fff;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 10px 15px;
+      position: relative;
+      transition: all 300ms;
+    }
+
+    td:first-child {
+      box-shadow: inset 1px 0 0 #fff;
+    }
+
+    td:last-child {
+      border-right: 1px solid #e8e8e8;
+      box-shadow: inset -1px 0 0 #fff;
+    }
+
+    tr {
+      background: url(http://jackrugile.com/images/misc/noise-diagonal.png);
+    }
+
+    tr:nth-child(odd) td {
+      background: #f1f1f1 url(http://jackrugile.com/images/misc/noise-diagonal.png);
+    }
+
+    tr:last-of-type td {
+      box-shadow: inset 0 -1px 0 #fff;
+    }
+
+    tr:last-of-type td:first-child {
+      box-shadow: inset 1px -1px 0 #fff;
+    }
+
+    tr:last-of-type td:last-child {
+      box-shadow: inset -1px -1px 0 #fff;
+    }
+
+    tbody:hover td {
+      color: transparent;
+      text-shadow: 0 0 3px #aaa;
+    }
+
+    tbody:hover tr:hover td {
+      color: #444;
+      text-shadow: 0 1px 0 #fff;
+    }
+  </style>
 </head>
 <body>
 
 <div class="fh5co-loader"></div>
 
 <div id="page">
-	<nav class="fh5co-nav" role="navigation">
-		<div class="container">
-			<div class="row">
-				<div class="left-menu text-right menu-1">
-					<ul>
-						<li><a href="add.php">Ajouter</a></li>
-						<li><a href="get.php">Récupérer</a></li>
-					</ul>
-				</div>
-				<div class="logo text-center">
-					<div id="fh5co-logo"><a href="index.php">Money Push</a></div>
-				</div>
-				<div class="right-menu text-left menu-1">
-					<ul>
-						<li class="active"><a href="put.php">Modifier</a></li>
-						<li><a href="delete.php">Supprimer</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</nav>
+  <nav class="fh5co-nav" role="navigation">
+    <div class="container">
+      <div class="row">
+        <div class="left-menu text-right menu-1">
+          <ul>
+            <li><a href="add.php">Ajouter</a></li>
+            <li><a href="get.php">Récupérer</a></li>
+          </ul>
+        </div>
+        <div class="logo text-center">
+          <div id="fh5co-logo"><a href="index.php">Money Push</a></div>
+        </div>
+        <div class="right-menu text-left menu-1">
+          <ul>
+            <li class="active"><a href="put.php">Modifier</a></li>
+            <li><a href="delete.php">Supprimer</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
 
-	<header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(images/img_bg_2.jpg);">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-10 col-md-offset-1 text-center">
-					<div class="display-t">
-						<div class="display-tc animate-box" data-animate-effect="fadeIn">
-							<h1>Gestion des ordres</h1>
-							<h2>À l'aide de l'API Money Push</h2>
-							<div class="row">
-								<form class="form-inline" id="fh5co-header-subscribe">
-									<div class="col-md-6 col-md-offset-3">
-										<div class="form-group">
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
+  <header id="fh5co-header" class="fh5co-cover" role="banner" style="height: 180px;">
+    <div class="overlay"></div>
+  </header>
 
-	<div id="fh5co-services" class="fh5co-bg-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-4 col-sm-4">
-					<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<span class="icon">
-							<i class="icon-eye"></i>
-						</span>
-						<h3>Retina Ready</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4">
-					<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<span class="icon">
-							<i class="icon-command"></i>
-						</span>
-						<h3>Fully Responsive</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4">
-					<div class="feature-center animate-box" data-animate-effect="fadeIn">
-						<span class="icon">
-							<i class="icon-mouse"></i>
-						</span>
-						<h3>Web Starter</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div id="fh5co-project">
+    <div class="container">
+      <div class="row animate-box">
+        <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+          <h2>Modification des ordres</h2>
+          <h3> <?php
+            if ($orders) {
+              echo "Total ".count($orders);
+            }
+            else {
+              echo "<strong style='color: red'>Service non disponible</strong>";
+            }
+            ?>
+          </h3>
+        </div>
+      </div>
+      <div class="row">
+        <table>
+          <thead>
+          <tr>
+            <th style="text-align: center">Identifiant</th>
+            <th style="text-align: center">Type</th>
+            <th style="text-align: center">Quantité</th>
+            <th style="text-align: center">Prix</th>
+            <th style="text-align: center">Symbole</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
 
-	<div id="fh5co-project">
-		<div class="container">
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<h2>Our Project</h2>
-					<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-					<a href="#"><img src="images/work-1.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-						<h3>Sea</h3>
-						<span>Web Design</span>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-					<a href="#"><img src="images/work-2.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-						<h3>Nature</h3>
-						<span>Application</span>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-					<a href="#"><img src="images/work-3.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-						<h3>Green Island</h3>
-						<span>Branding</span>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-					<a href="#"><img src="images/work-4.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-						<h3>Workspace</h3>
-						<span>Web Design</span>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-					<a href="#"><img src="images/work-5.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-						<h3>Nature</h3>
-						<span>Application</span>
-					</a>
-				</div>
-				<div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-					<a href="#"><img src="images/work-6.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-						<h3>Green Island</h3>
-						<span>Branding</span>
-					</a>
-				</div>
+          <?php
 
-			</div>
-		</div>
-	</div>
-	<div id="fh5co-testimonial" style="background-image:url(images/img_bg_1.jpg);">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<h2>Happy Clients</h2>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<div class="box-testimony animate-box">
-						<blockquote>
-							<span class="quote"><span><i class="icon-quote"></i></span></span>
-							<p>&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
-						</blockquote>
-						<p class="author">John Doe, CEO <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a> <span class="subtext">Creative Director</span></p>
-					</div>
+          foreach ($orders as $_order) {
+            echo "<tr>";
+            echo "<td style='text-align: center;'><strong>".$_order["Order"]["OrderID"]."</strong></td>";
+            echo "<td style='text-align: center;'><strong>".$_order["Order"]["Side"]."</strong></td>";
+            echo "<td style='text-align: center;'><strong>".$_order["Order"]["OrderQty"]."</strong></td>";
+            echo "<td style='text-align: center;'><strong>".$_order["Order"]["Price"]."</strong></td>";
+            echo "<td style='text-align: center;'><strong>".$_order["Order"]["Symbol"]."</strong></td>";
+            echo "<td style='text-align: center;'>
+              <a href='putValue.php?OrderID=". $_order["Order"]["OrderID"]."&side=".$_order["Order"]["Side"]."&orderQty=".$_order["Order"]["OrderQty"]."&symbol=".$_order["Order"]["Symbol"]."'>
+              <i class='icon icon-pencil'></i></a>
+               </td>";
+            echo "</tr>";
+          }
+          ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
-				</div>
-				<div class="col-md-4">
-					<div class="box-testimony animate-box">
-						<blockquote>
-							<span class="quote"><span><i class="icon-quote"></i></span></span>
-							<p>&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.&rdquo;</p>
-						</blockquote>
-						<p class="author">John Doe, CEO <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a> <span class="subtext">Creative Director</span></p>
-					</div>
-
-
-				</div>
-				<div class="col-md-4">
-					<div class="box-testimony animate-box">
-						<blockquote>
-							<span class="quote"><span><i class="icon-quote"></i></span></span>
-							<p>&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
-						</blockquote>
-						<p class="author">John Doe, Founder <a href="#">FREEHTML5.co</a> <span class="subtext">Creative Director</span></p>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div id="fh5co-blog" class="fh5co-bg-section">
-		<div class="container">
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<h2>Recent Blog</h2>
-					<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-4 col-md-4">
-					<div class="fh5co-blog animate-box">
-						<a href="#"><img class="img-responsive" src="images/work-4.jpg" alt=""></a>
-						<div class="blog-text">
-							<h3><a href=""#>45 Minimal Workspace Rooms for Web Savvys</a></h3>
-							<span class="posted_on">Nov. 15th</span>
-							<span class="comment"><a href="">21<i class="icon-speech-bubble"></i></a></span>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-							<a href="#" class="btn btn-primary">Read More</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-4">
-					<div class="fh5co-blog animate-box">
-						<a href="#"><img class="img-responsive" src="images/work-2.jpg" alt=""></a>
-						<div class="blog-text">
-							<h3><a href=""#>45 Minimal Worksspace Rooms for Web Savvys</a></h3>
-							<span class="posted_on">Nov. 15th</span>
-							<span class="comment"><a href="">21<i class="icon-speech-bubble"></i></a></span>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-							<a href="#" class="btn btn-primary">Read More</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-4">
-					<div class="fh5co-blog animate-box">
-						<a href="#"><img class="img-responsive" src="images/work-3.jpg" alt=""></a>
-						<div class="blog-text">
-							<h3><a href=""#>45 Minimal Workspace Rooms for Web Savvys</a></h3>
-							<span class="posted_on">Nov. 15th</span>
-							<span class="comment"><a href="">21<i class="icon-speech-bubble"></i></a></span>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-							<a href="#" class="btn btn-primary">Read More</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<div id="fh5co-started">
-		<div class="container">
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<h2>Lets Get Started</h2>
-					<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
-				</div>
-			</div>
-			<div class="row animate-box">
-				<div class="col-md-8 col-md-offset-2">
-					<form class="form-inline">
-						<div class="col-md-6 col-md-offset-3 col-sm-6">
-							<button type="submit" class="btn btn-default btn-block">Get In Touch</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<footer id="fh5co-footer" role="contentinfo">
-		<div class="container">
-			<div class="row row-pb-md">
-				<div class="col-md-2 col-sm-4 col-xs-6">
-					<ul class="fh5co-footer-links">
-						<li><a href="#">About</a></li>
-						<li><a href="#">Help</a></li>
-						<li><a href="#">Contact</a></li>
-						<li><a href="#">Terms</a></li>
-						<li><a href="#">Meetups</a></li>
-					</ul>
-				</div>
-
-				<div class="col-md-2 col-sm-4 col-xs-6">
-					<ul class="fh5co-footer-links">
-						<li><a href="#">Shop</a></li>
-						<li><a href="#">Privacy</a></li>
-						<li><a href="#">Testimonials</a></li>
-						<li><a href="#">Handbook</a></li>
-						<li><a href="#">Held Desk</a></li>
-					</ul>
-				</div>
-
-				<div class="col-md-2 col-sm-4 col-xs-6">
-					<ul class="fh5co-footer-links">
-						<li><a href="#">Find Designers</a></li>
-						<li><a href="#">Find Developers</a></li>
-						<li><a href="#">Teams</a></li>
-						<li><a href="#">Advertise</a></li>
-						<li><a href="#">API</a></li>
-					</ul>
-				</div>
-				<div class="col-md-4 col-sm-12 col-xs-12 fh5co-widget col-md-push-1">
-					<h3>A Little About Orange</h3>
-					<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
-					<p><a href="#">Learn More</a></p>
-				</div>
-			</div>
-
-			<div class="row copyright">
-				<div class="col-md-12 text-center">
-					<p>
-						<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small>
-						<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://unsplash.com/" target="_blank">Unsplash</a></small>
-					</p>
-					<p>
-					<ul class="fh5co-social-icons">
-						<li><a href="#"><i class="icon-twitter"></i></a></li>
-						<li><a href="#"><i class="icon-facebook"></i></a></li>
-						<li><a href="#"><i class="icon-linkedin"></i></a></li>
-						<li><a href="#"><i class="icon-dribbble"></i></a></li>
-					</ul>
-					</p>
-				</div>
-			</div>
-
-		</div>
-	</footer>
 </div>
 
 <div class="gototop js-top">
-	<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+  <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 </div>
 
 <!-- jQuery -->

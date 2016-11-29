@@ -1,24 +1,9 @@
 <?php
 
-$side     = $_POST["side"];
-$symbol   = $_POST["symbol"];
-$orderQty = $_POST["orderQty"];
-$limit    = $_POST["limit"];
-$stop     = $_POST["stop"];
-$user_key = "4f6158ef97874d8d49ead880fc6fe756";
-
-$values = $stop && $limit ?
-  "user_key=" . $user_key . "&Symbol=" . $symbol . "&OrderQty=" . $orderQty . "&Side=" . $side . "&type=ModifiableStopLoss&Stop=" . $stop . "&Limit=" . $limit :
-  "user_key=" . $user_key . "&Symbol=" . $symbol . "&OrderQty=" . $orderQty . "&Side=" . $side;
-
-$curl = curl_init("https://api-2445581154346.apicast.io/positions");
-curl_setopt($curl, CURLOPT_POST, 1);
-curl_setopt($curl, CURLOPT_POSTFIELDS, $values); //On envoie les valeurs
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-$result = curl_exec($curl);
-curl_close($curl);
-
-$result = json_decode($result, true);
+$order_id = $_GET["OrderID"];
+$side     = $_GET["side"];
+$symbol   = $_GET["symbol"];
+$orderQty = $_GET["orderQty"];
 ?>
 
 <!DOCTYPE HTML>
@@ -97,48 +82,42 @@ $result = json_decode($result, true);
     <div class="container">
       <div class="row animate-box">
         <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-          <?php
+          <h2>Modification de l'ordre</h2>
 
-          //var_dump($result);
+          <form class="form" method="POST" action="putChecked.php">
+            <input type="hidden" name="OrderQty" value="<?php echo"$orderQty" ?>"/>
+            <input type="hidden" name="Side" value="<?php echo "$side" ?>"/>
+            <input type="hidden" name="Symbol" value="<?php echo "$symbol" ?>"/>
 
-          if (!$result) {
-            echo "<h2 style='color:darkred'>Service non disponible<i class='icon icon-cross'></i></h2>";
-          }
-          else {
-            $error = false;
-            if (array_key_exists("error", $result)) {
-              $error = true;
-              echo "<h2 style='color:darkred'>Erreur : ". $result["error"]. "<i class='icon icon-cross'></i></h2>";
-            }
-
-            if (!$error) {
-              if (!$stop && !$limit && array_key_exists("OrderStatus", $result)) {
-                if ($result["OrderStatus"] == "Executed") {
-                  echo "<h2 style='color:green'>Ordre ajouté <i class='icon icon-check'></i></h2>";
-                }
-                else {
-                  echo "<h2 style='color:darkred'>Service non disponible<i class='icon icon-cross'></i></h2>";
-                }
-              }
-              else {
-                if ($result["Order"]["OrderStatus"] == "Executed") {
-                  echo "<h2 style='color:green'>Ordre ajouté <i class='icon icon-check'></i></h2>";
-                }
-                else {
-                  echo "<h2 style='color:darkred'>Service non disponible<i class='icon icon-cross'></i></h2>";
-                }
-              }
-            }
-          }
-          ?>
+            <div class="col-md-6 col-md-offset-3 col-sm-6">
+              <label for="limit_id" style="margin-left: 0%;">Limite ID</label>
+              <input type="number" name="limit_id" style="margin-left: 4%;"/>
+              <br/>
+              <br/>
+              <label for="update_value" style="margin-left: 0%;">Valeur</label>
+              <input type="text" name="update_value" style="margin-left: 10%;"/>
+              <br/>
+              <br/>
+              <label for="side" style="margin-left: -18%;">Type</label>
+              <select name="update_field" style="margin-left: 30%;">
+                <option>---</option>
+                <option value="Limit">LIMIT</option>
+                <option value="Stop">STOP</option>
+              </select>
+              <br/>
+              <br/>
+              <button type="submit"
+                      style="background-color:#F36363; color :white; width: 40%; margin-left: 30%;"
+                      class="btn btn-default btn-block">Modifier
+              </button>
+            </div>
+          </form>
         </div>
       </div>
       <div class="row">
-
       </div>
     </div>
   </div>
-
 </div>
 
 <div class="gototop js-top">

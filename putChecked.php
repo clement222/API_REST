@@ -1,18 +1,18 @@
 <?php
 
-$side     = $_POST["side"];
-$symbol   = $_POST["symbol"];
-$orderQty = $_POST["orderQty"];
-$limit    = $_POST["limit"];
-$stop     = $_POST["stop"];
+$order_id = $_POST["OrderID"];
+$side     = $_POST["Side"];
+$symbol   = $_POST["Symbol"];
+$orderQty = $_POST["OrderQty"];
+$limit_id = $_POST["limit_id"];
+$update_field = $_POST["update_field"];
+$update_value = $_POST["update_value"];
 $user_key = "4f6158ef97874d8d49ead880fc6fe756";
 
-$values = $stop && $limit ?
-  "user_key=" . $user_key . "&Symbol=" . $symbol . "&OrderQty=" . $orderQty . "&Side=" . $side . "&type=ModifiableStopLoss&Stop=" . $stop . "&Limit=" . $limit :
-  "user_key=" . $user_key . "&Symbol=" . $symbol . "&OrderQty=" . $orderQty . "&Side=" . $side;
+$values = "user_key=" . $user_key . "&Symbol=" . $symbol . "&OrderQty=" . $orderQty . "&Side=" . $side. "&update_field=".$update_field. "&update_value=". $update_value;
 
-$curl = curl_init("https://api-2445581154346.apicast.io/positions");
-curl_setopt($curl, CURLOPT_POST, 1);
+$curl = curl_init("https://api-2445581154346.apicast.io/positions/". $limit_id);
+curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
 curl_setopt($curl, CURLOPT_POSTFIELDS, $values); //On envoie les valeurs
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 $result = curl_exec($curl);
@@ -99,42 +99,21 @@ $result = json_decode($result, true);
         <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
           <?php
 
-          //var_dump($result);
-
           if (!$result) {
             echo "<h2 style='color:darkred'>Service non disponible<i class='icon icon-cross'></i></h2>";
           }
           else {
-            $error = false;
-            if (array_key_exists("error", $result)) {
-              $error = true;
-              echo "<h2 style='color:darkred'>Erreur : ". $result["error"]. "<i class='icon icon-cross'></i></h2>";
+            if ($result["OrderStatus"] == "Executed") {
+              echo "<h2 style='color:green'>Ordre modifié <i class='icon icon-check'></i></h2>";
             }
-
-            if (!$error) {
-              if (!$stop && !$limit && array_key_exists("OrderStatus", $result)) {
-                if ($result["OrderStatus"] == "Executed") {
-                  echo "<h2 style='color:green'>Ordre ajouté <i class='icon icon-check'></i></h2>";
-                }
-                else {
-                  echo "<h2 style='color:darkred'>Service non disponible<i class='icon icon-cross'></i></h2>";
-                }
-              }
-              else {
-                if ($result["Order"]["OrderStatus"] == "Executed") {
-                  echo "<h2 style='color:green'>Ordre ajouté <i class='icon icon-check'></i></h2>";
-                }
-                else {
-                  echo "<h2 style='color:darkred'>Service non disponible<i class='icon icon-cross'></i></h2>";
-                }
-              }
+            else {
+              echo "<h2 style='color:darkred'>Service non disponible<i class='icon icon-cross'></i></h2>";
             }
           }
           ?>
         </div>
       </div>
       <div class="row">
-
       </div>
     </div>
   </div>
