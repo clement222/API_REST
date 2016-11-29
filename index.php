@@ -77,6 +77,8 @@
               <h1>Gestion des ordres</h1>
 
               <h2>À l'aide de l'API Money Push</h2>
+              <br/>
+              <h2 style="color: #090909">BERARD Clément - GHAZI Jamil</h2>
 
               <div class="row">
                 <form class="form-inline" id="fh5co-header-subscribe">
@@ -87,7 +89,6 @@
                 </form>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </div>
