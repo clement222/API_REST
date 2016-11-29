@@ -5,7 +5,7 @@ $symbol   = $_POST["symbol"];
 $orderQty = $_POST["orderQty"];
 $limit    = $_POST["limit"];
 $stop     = $_POST["stop"];
-$user_key = "4f6158ef97874d8d49ead880fc6fe756";
+$user_key = "3392b37de2eae8db78ce0ed31135acf3";
 
 $values = $stop && $limit ?
   "user_key=" . $user_key . "&Symbol=" . $symbol . "&OrderQty=" . $orderQty . "&Side=" . $side . "&type=ModifiableStopLoss&Stop=" . $stop . "&Limit=" . $limit :
