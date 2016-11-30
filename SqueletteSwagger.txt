@@ -75,7 +75,7 @@ paths:
     get:
       #summary: Product Types
       description: |
-        Récupère des ordres. Si un OrdreID l'ordre sera retourné sinon tous les ordres seront retournés
+        Récupère des ordres. Si un OrdreID est renseigné, l'ordre sera retourné sinon tous les ordres seront retournés
       parameters:
         - name: ordre_ID
           in: query
@@ -116,6 +116,17 @@ paths:
           description: Clé d'identification
           required: true
           type: string
+        - name: typeLimiteStop
+          in: query
+          description: Renseigner ce que vous souhaitez modifier "Limit" ou "Stop"
+          required: true
+          type: string
+        - name: valeur
+          in: query
+          description: Nouvelle valeur de la limite ou du stop
+          required: true
+          type: number
+          format: double
       tags:
         - Ordre
       responses:
