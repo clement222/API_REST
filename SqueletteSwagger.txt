@@ -73,7 +73,6 @@ paths:
           schema:
             $ref: '#/definitions/Error'
     get:
-      #summary: Product Types
       description: |
         Récupère des ordres. Si un OrdreID est renseigné, l'ordre sera retourné sinon tous les ordres seront retournés
       parameters:
